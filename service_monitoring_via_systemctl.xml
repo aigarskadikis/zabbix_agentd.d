@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-01-10T10:19:07Z</date>
+    <date>2019-01-10T11:05:44Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -245,7 +245,17 @@ sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&#13;
                                 <step>
                                     <type>5</type>
                                     <params>((.*)(\n)?)+
-\0:Condition=1</params>
+\0:Condition= no</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>Condition..(.*)
+\1:no=0:start=1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(no|start)(?=.*:\1=(\d))
+\2</params>
                                 </step>
                             </preprocessing>
                             <jmx_endpoint/>
