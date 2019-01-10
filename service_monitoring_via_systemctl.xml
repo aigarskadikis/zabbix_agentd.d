@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-01-10T11:05:44Z</date>
+    <date>2019-01-10T11:39:55Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -11,45 +11,7 @@
         <template>
             <template>Service monitoring using systemctl</template>
             <name>Service monitoring using systemctl</name>
-            <description>zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034|\&quot;&quot;] | head -1&#13;
-&#13;
-&#13;
-&#13;
-#echo &quot;{\&quot;data\&quot;:[$(systemctl list-unit-files|grep &quot;\.service&quot;|grep -v &quot;@&quot;|sed -E -e &quot;s/\.service\s+/\&quot;,\&quot;{#STATUS}\&quot;:\&quot;/;s/(\s+)?$/\&quot;},/;s/^/{\&quot;{#NAME}\&quot;:\&quot;/;$ s/.$//&quot;)]}&quot;&#13;
-&#13;
-&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&quot;] | head -1&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|\&quot;&quot;] | head -1&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d044{#NAME}\d044:\d044|\&quot;&quot;] | head -1&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d044{#NAME}\d044:\d044|;$ s|.$||\&quot;&quot;] | head -1&#13;
-&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo $(systemctl list-unit-files)&quot;] | head -1&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo $(systemctl list-unit-files)&quot;] | head -1&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo \&quot;{\\\&quot;data\\\&quot;:[\&quot; &amp;&amp; systemctl list-unit-files | grep .service&quot;] | head -2&#13;
-&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo \&quot;{\\\&quot;data\\\&quot;:[\&quot; &amp;&amp; systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d034{#NAME}\d034:\d034|;$ s|.$||\&quot; &amp;&amp; echo -e \d093&quot;]&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo $(systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d044{#NAME}\d044:\d044|;$ s|.$||\&quot;)&quot;] | head -1&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-&#13;
-;$ s|.$||&#13;
-&#13;
-&#13;
-sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&#13;
-&#13;
-;s|(\s+)?$|\d034}\d044|;&#13;
-&#13;
-;s|^|{\d044{#NAME}\d044:\d044|;&#13;
-&#13;
-;$ s|.$||</description>
+            <description/>
             <groups>
                 <group>
                     <name>Templates/Linux</name>
@@ -104,7 +66,7 @@ sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&#13;
                         <conditions>
                             <condition>
                                 <macro>{#NAME}</macro>
-                                <value>kdump</value>
+                                <value>(kdump|systemd-readahead-drop|irqbalance)</value>
                                 <operator>9</operator>
                                 <formulaid>A</formulaid>
                             </condition>
@@ -374,7 +336,7 @@ sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&#13;
                             <snmp_oid/>
                             <key>systemctl.status[{#NAME}]</key>
                             <delay>20s</delay>
-                            <history>1d</history>
+                            <history>0</history>
                             <trends>0</trends>
                             <status>0</status>
                             <value_type>4</value_type>
@@ -446,7 +408,7 @@ sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&#13;
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Service monitoring using systemctl:active[{#NAME}].last()}=0 and {Service monitoring using systemctl:loaded[{#NAME}].last()}=1</expression>
+                            <expression>{Service monitoring using systemctl:active[{#NAME}].last()}=0 and {Service monitoring using systemctl:loaded[{#NAME}].last()}=1 and {Service monitoring using systemctl:condition[{#NAME}].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Service &quot;{#NAME}&quot; is not running but configured at startup</name>
@@ -455,7 +417,13 @@ sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&#13;
                             <url/>
                             <status>0</status>
                             <priority>3</priority>
-                            <description/>
+                            <description>some services like:&#13;
+* rhel-autorelabel&#13;
+* rhel-autorelabel-mark&#13;
+* rhel-configure&#13;
+* rhel-loadmodules&#13;
+* systemd-readahead-collect&#13;
+contains a triggered start. A workaround has been made to detect if the service contains even an condition</description>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
