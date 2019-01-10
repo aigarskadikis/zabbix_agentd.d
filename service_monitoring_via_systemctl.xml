@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-01-10T11:39:55Z</date>
+    <date>2019-01-10T13:12:29Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -19,16 +19,16 @@
             </groups>
             <applications>
                 <application>
-                    <name>systemctl</name>
-                </application>
-                <application>
-                    <name>systemctl active</name>
-                </application>
-                <application>
                     <name>systemctl condition</name>
                 </application>
                 <application>
-                    <name>systemctl loaded</name>
+                    <name>systemctl contains condition</name>
+                </application>
+                <application>
+                    <name>systemctl raw</name>
+                </application>
+                <application>
+                    <name>systemctl startup</name>
                 </application>
                 <application>
                     <name>systemctl status</name>
@@ -82,11 +82,11 @@
                     <description/>
                     <item_prototypes>
                         <item_prototype>
-                            <name>active {#NAME}</name>
+                            <name>contains condition {#NAME}</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>active[{#NAME}]</key>
+                            <key>contains.condition[{#NAME}]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -113,95 +113,12 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>systemctl active</name>
+                                    <name>systemctl contains condition</name>
                                 </application>
                             </applications>
                             <valuemap>
-                                <name>systemctl.active</name>
+                                <name>systemctl.condition</name>
                             </valuemap>
-                            <logtimefmt/>
-                            <preprocessing>
-                                <step>
-                                    <type>5</type>
-                                    <params>Active..(.*)(\n)?
-\1</params>
-                                </step>
-                                <step>
-                                    <type>5</type>
-                                    <params>\((.*)\)
-\1</params>
-                                </step>
-                                <step>
-                                    <type>5</type>
-                                    <params>(.*)
-\1:dead=0:running=1:exited=2:start=3</params>
-                                </step>
-                                <step>
-                                    <type>5</type>
-                                    <params>(dead|running|exited|start)(?=.*:\1=(\d))
-\2</params>
-                                </step>
-                            </preprocessing>
-                            <jmx_endpoint/>
-                            <timeout>3s</timeout>
-                            <url/>
-                            <query_fields/>
-                            <posts/>
-                            <status_codes>200</status_codes>
-                            <follow_redirects>1</follow_redirects>
-                            <post_type>0</post_type>
-                            <http_proxy/>
-                            <headers/>
-                            <retrieve_mode>0</retrieve_mode>
-                            <request_method>0</request_method>
-                            <output_format>0</output_format>
-                            <allow_traps>0</allow_traps>
-                            <ssl_cert_file/>
-                            <ssl_key_file/>
-                            <ssl_key_password/>
-                            <verify_peer>0</verify_peer>
-                            <verify_host>0</verify_host>
-                            <application_prototypes/>
-                            <master_item>
-                                <key>systemctl.status[{#NAME}]</key>
-                            </master_item>
-                        </item_prototype>
-                        <item_prototype>
-                            <name>have condition {#NAME}</name>
-                            <type>18</type>
-                            <snmp_community/>
-                            <snmp_oid/>
-                            <key>condition[{#NAME}]</key>
-                            <delay>0</delay>
-                            <history>90d</history>
-                            <trends>0</trends>
-                            <status>0</status>
-                            <value_type>4</value_type>
-                            <allowed_hosts/>
-                            <units/>
-                            <snmpv3_contextname/>
-                            <snmpv3_securityname/>
-                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                            <snmpv3_authpassphrase/>
-                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                            <snmpv3_privpassphrase/>
-                            <params/>
-                            <ipmi_sensor/>
-                            <authtype>0</authtype>
-                            <username/>
-                            <password/>
-                            <publickey/>
-                            <privatekey/>
-                            <port/>
-                            <description/>
-                            <inventory_link>0</inventory_link>
-                            <applications>
-                                <application>
-                                    <name>systemctl condition</name>
-                                </application>
-                            </applications>
-                            <valuemap/>
                             <logtimefmt/>
                             <preprocessing>
                                 <step>
@@ -245,11 +162,11 @@
                             </master_item>
                         </item_prototype>
                         <item_prototype>
-                            <name>loaded {#NAME}</name>
+                            <name>startup {#NAME}</name>
                             <type>18</type>
                             <snmp_community/>
                             <snmp_oid/>
-                            <key>loaded[{#NAME}]</key>
+                            <key>startup[{#NAME}]</key>
                             <delay>0</delay>
                             <history>90d</history>
                             <trends>365d</trends>
@@ -276,7 +193,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>systemctl loaded</name>
+                                    <name>systemctl startup</name>
                                 </application>
                             </applications>
                             <valuemap>
@@ -286,22 +203,97 @@
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(Loaded.*)\n
+                                    <params>(Loaded.*)(\n)?
 \1</params>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>;.(.*);
-\1</params>
-                                </step>
-                                <step>
-                                    <type>5</type>
-                                    <params>(.*)
 \1:disabled=0:enabled=1:static=2:indirect=3</params>
                                 </step>
                                 <step>
                                     <type>5</type>
                                     <params>(disabled|enabled|static|indirect)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item>
+                                <key>systemctl.status[{#NAME}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>status {#NAME}</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>status[{#NAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>systemctl status</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>systemctl.active</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>Active..(.*)(\n)?
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>\((.*)\)
+\1:dead=0:running=1:exited=2:start=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(dead|running|exited|start)(?=.*:\1=(\d))
 \2</params>
                                 </step>
                             </preprocessing>
@@ -336,7 +328,7 @@
                             <snmp_oid/>
                             <key>systemctl.status[{#NAME}]</key>
                             <delay>20s</delay>
-                            <history>0</history>
+                            <history>1h</history>
                             <trends>0</trends>
                             <status>0</status>
                             <value_type>4</value_type>
@@ -361,7 +353,7 @@
                             <inventory_link>0</inventory_link>
                             <applications>
                                 <application>
-                                    <name>systemctl status</name>
+                                    <name>systemctl raw</name>
                                 </application>
                             </applications>
                             <valuemap/>
@@ -392,7 +384,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Service monitoring using systemctl:active[{#NAME}].last({$SERVICE_STARTUP_WINDOW})}=3</expression>
+                            <expression>{Service monitoring using systemctl:status[{#NAME}].last({$SERVICE_STARTUP_WINDOW})}=3</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Service &quot;{#NAME}&quot; is not completely started in last {$SERVICE_STARTUP_WINDOW}</name>
@@ -408,7 +400,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Service monitoring using systemctl:active[{#NAME}].last()}=0 and {Service monitoring using systemctl:loaded[{#NAME}].last()}=1 and {Service monitoring using systemctl:condition[{#NAME}].last()}=0</expression>
+                            <expression>{Service monitoring using systemctl:status[{#NAME}].last()}=0 and {Service monitoring using systemctl:startup[{#NAME}].last()}=1 and {Service monitoring using systemctl:contains.condition[{#NAME}].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Service &quot;{#NAME}&quot; is not running but configured at startup</name>
@@ -430,7 +422,7 @@ contains a triggered start. A workaround has been made to detect if the service 
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Service monitoring using systemctl:active[{#NAME}].last()}=1 and {Service monitoring using systemctl:loaded[{#NAME}].last()}=0</expression>
+                            <expression>{Service monitoring using systemctl:status[{#NAME}].last()}=1 and {Service monitoring using systemctl:startup[{#NAME}].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>You may want to enable &quot;{#NAME}&quot; at startup</name>
@@ -498,6 +490,19 @@ contains a triggered start. A workaround has been made to detect if the service 
                 <mapping>
                     <value>3</value>
                     <newvalue>start</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>systemctl.condition</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>no</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>yes</newvalue>
                 </mapping>
             </mappings>
         </value_map>
