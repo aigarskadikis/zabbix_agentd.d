@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.0</version>
+    <date>2019-01-10T10:19:07Z</date>
+    <groups>
+        <group>
+            <name>Templates/Linux</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Service monitoring using systemctl</template>
+            <name>Service monitoring using systemctl</name>
+            <description>zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034|\&quot;&quot;] | head -1&#13;
+&#13;
+&#13;
+&#13;
+#echo &quot;{\&quot;data\&quot;:[$(systemctl list-unit-files|grep &quot;\.service&quot;|grep -v &quot;@&quot;|sed -E -e &quot;s/\.service\s+/\&quot;,\&quot;{#STATUS}\&quot;:\&quot;/;s/(\s+)?$/\&quot;},/;s/^/{\&quot;{#NAME}\&quot;:\&quot;/;$ s/.$//&quot;)]}&quot;&#13;
+&#13;
+&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&quot;] | head -1&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|\&quot;&quot;] | head -1&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d044{#NAME}\d044:\d044|\&quot;&quot;] | head -1&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d044{#NAME}\d044:\d044|;$ s|.$||\&quot;&quot;] | head -1&#13;
+&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo $(systemctl list-unit-files)&quot;] | head -1&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo $(systemctl list-unit-files)&quot;] | head -1&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo \&quot;{\\\&quot;data\\\&quot;:[\&quot; &amp;&amp; systemctl list-unit-files | grep .service&quot;] | head -2&#13;
+&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo \&quot;{\\\&quot;data\\\&quot;:[\&quot; &amp;&amp; systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d034{#NAME}\d034:\d034|;$ s|.$||\&quot; &amp;&amp; echo -e \d093&quot;]&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+zabbix_get -s 127.0.0.1 -p 10050 -k system.run[&quot;echo $(systemctl list-unit-files|grep \&quot;\.service\&quot;|sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|;s|(\s+)?$|\d034}\d044|;s|^|{\d044{#NAME}\d044:\d044|;$ s|.$||\&quot;)&quot;] | head -1&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+;$ s|.$||&#13;
+&#13;
+&#13;
+sed -E -e \&quot;s|.service\s+|\d034\d044\d034{#STATUS}\d034:\d034|\&quot;&#13;
+&#13;
+;s|(\s+)?$|\d034}\d044|;&#13;
+&#13;
+;s|^|{\d044{#NAME}\d044:\d044|;&#13;
+&#13;
+;$ s|.$||</description>
+            <groups>
+                <group>
+                    <name>Templates/Linux</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>systemctl</name>
+                </application>
+                <application>
+                    <name>systemctl active</name>
+                </application>
+                <application>
+                    <name>systemctl condition</name>
+                </application>
+                <application>
+                    <name>systemctl loaded</name>
+                </application>
+                <application>
+                    <name>systemctl status</name>
+                </application>
+            </applications>
+            <items/>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>discover services systemctl</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>services.systemctl</key>
+                    <delay>30s</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions>
+                            <condition>
+                                <macro>{#NAME}</macro>
+                                <value>kdump</value>
+                                <operator>9</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#STATUS}</macro>
+                                <value>(enabled|disabled)</value>
+                                <operator>8</operator>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>0</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>active {#NAME}</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>active[{#NAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>systemctl active</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>systemctl.active</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>Active..(.*)(\n)?
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>\((.*)\)
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:dead=0:running=1:exited=2:start=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(dead|running|exited|start)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item>
+                                <key>systemctl.status[{#NAME}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>have condition {#NAME}</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>condition[{#NAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>4</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>systemctl condition</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>((.*)(\n)?)+
+\0:Condition=1</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item>
+                                <key>systemctl.status[{#NAME}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>loaded {#NAME}</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>loaded[{#NAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>systemctl loaded</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>systemctl.loaded</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>5</type>
+                                    <params>(Loaded.*)\n
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>;.(.*);
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
+\1:disabled=0:enabled=1:static=2:indirect=3</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(disabled|enabled|static|indirect)(?=.*:\1=(\d))
+\2</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item>
+                                <key>systemctl.status[{#NAME}]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>status of &quot;{#NAME}&quot;</name>
+                            <type>7</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>systemctl.status[{#NAME}]</key>
+                            <delay>20s</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>4</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>systemctl status</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <timeout>3s</timeout>
+                            <url/>
+                            <query_fields/>
+                            <posts/>
+                            <status_codes>200</status_codes>
+                            <follow_redirects>1</follow_redirects>
+                            <post_type>0</post_type>
+                            <http_proxy/>
+                            <headers/>
+                            <retrieve_mode>0</retrieve_mode>
+                            <request_method>0</request_method>
+                            <output_format>0</output_format>
+                            <allow_traps>0</allow_traps>
+                            <ssl_cert_file/>
+                            <ssl_key_file/>
+                            <ssl_key_password/>
+                            <verify_peer>0</verify_peer>
+                            <verify_host>0</verify_host>
+                            <application_prototypes/>
+                            <master_item/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Service monitoring using systemctl:active[{#NAME}].last({$SERVICE_STARTUP_WINDOW})}=3</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>Service &quot;{#NAME}&quot; is not completely started in last {$SERVICE_STARTUP_WINDOW}</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description>Maybe the pid file do not match from config with the startup init file</description>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Service monitoring using systemctl:active[{#NAME}].last()}=0 and {Service monitoring using systemctl:loaded[{#NAME}].last()}=1</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>Service &quot;{#NAME}&quot; is not running but configured at startup</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Service monitoring using systemctl:active[{#NAME}].last()}=1 and {Service monitoring using systemctl:loaded[{#NAME}].last()}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>You may want to enable &quot;{#NAME}&quot; at startup</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>1</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                    <jmx_endpoint/>
+                    <timeout>3s</timeout>
+                    <url/>
+                    <query_fields/>
+                    <posts/>
+                    <status_codes>200</status_codes>
+                    <follow_redirects>1</follow_redirects>
+                    <post_type>0</post_type>
+                    <http_proxy/>
+                    <headers/>
+                    <retrieve_mode>0</retrieve_mode>
+                    <request_method>0</request_method>
+                    <allow_traps>0</allow_traps>
+                    <ssl_cert_file/>
+                    <ssl_key_file/>
+                    <ssl_key_password/>
+                    <verify_peer>0</verify_peer>
+                    <verify_host>0</verify_host>
+                </discovery_rule>
+            </discovery_rules>
+            <httptests/>
+            <macros>
+                <macro>
+                    <macro>{$SERVICE_STARTUP_WINDOW}</macro>
+                    <value>8m</value>
+                </macro>
+            </macros>
+            <templates/>
+            <screens/>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>systemctl.active</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>dead</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>running</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>exited</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>start</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+        <value_map>
+            <name>systemctl.loaded</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>disabled</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>enabled</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>static</newvalue>
+                </mapping>
+                <mapping>
+                    <value>3</value>
+                    <newvalue>indirect</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
