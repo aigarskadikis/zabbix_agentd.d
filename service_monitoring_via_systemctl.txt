@@ -1,0 +1,11 @@
+Service monitoring using systemctl, convert string to number, RegEx
+========================================================================
+This document represents the following zabbix features/techniques:
+
+* UserParameter which will discover all services. JSON format containing 2 parameters {#NAME} and {#STATUS}
+* Item UserParameter with argument. A safest way (rather than use system.run) to call a custom command from item key
+* A textual item. This is the input data (raw contet). A result from "systemctl status some-service-name". You do not want to store this in database
+* A dependable item. By grabing the raw conted and using regular expression it is possible to extract a line. See item prototypes: "active {#NAME}" and "loaded {#NAME}".
+  This technique show how it is possible to conver string to numbers. Underneath the hood it is not a substition. 
+  
+  
