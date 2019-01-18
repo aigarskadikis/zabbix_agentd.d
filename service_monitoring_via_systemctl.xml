@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-01-10T13:12:29Z</date>
+    <date>2019-01-18T13:43:00Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -9,8 +9,8 @@
     </groups>
     <templates>
         <template>
-            <template>Service monitoring using systemctl</template>
-            <name>Service monitoring using systemctl</name>
+            <template>service monitoring using systemctl</template>
+            <name>service monitoring using systemctl</name>
             <description/>
             <groups>
                 <group>
@@ -37,7 +37,7 @@
             <items/>
             <discovery_rules>
                 <discovery_rule>
-                    <name>discover services systemctl</name>
+                    <name>systemctl list-unit-files</name>
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
@@ -66,7 +66,7 @@
                         <conditions>
                             <condition>
                                 <macro>{#NAME}</macro>
-                                <value>(kdump|systemd-readahead-drop|irqbalance)</value>
+                                <value>(kdump|systemd-readahead-drop|irqbalance|dbus-org.freedesktop.nm-dispatcher|NetworkManager-dispatcher)</value>
                                 <operator>9</operator>
                                 <formulaid>A</formulaid>
                             </condition>
@@ -384,7 +384,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Service monitoring using systemctl:status[{#NAME}].last({$SERVICE_STARTUP_WINDOW})}=3</expression>
+                            <expression>{service monitoring using systemctl:status[{#NAME}].last({$SERVICE_STARTUP_WINDOW})}=3</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Service &quot;{#NAME}&quot; is not completely started in last {$SERVICE_STARTUP_WINDOW}</name>
@@ -400,7 +400,7 @@
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Service monitoring using systemctl:status[{#NAME}].last()}=0 and {Service monitoring using systemctl:startup[{#NAME}].last()}=1 and {Service monitoring using systemctl:contains.condition[{#NAME}].last()}=0</expression>
+                            <expression>{service monitoring using systemctl:status[{#NAME}].last()}=0 and {service monitoring using systemctl:startup[{#NAME}].last()}=1 and {service monitoring using systemctl:contains.condition[{#NAME}].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Service &quot;{#NAME}&quot; is not running but configured at startup</name>
@@ -422,7 +422,7 @@ contains a triggered start. A workaround has been made to detect if the service 
                             <tags/>
                         </trigger_prototype>
                         <trigger_prototype>
-                            <expression>{Service monitoring using systemctl:status[{#NAME}].last()}=1 and {Service monitoring using systemctl:startup[{#NAME}].last()}=0</expression>
+                            <expression>{service monitoring using systemctl:status[{#NAME}].last()}=1 and {service monitoring using systemctl:startup[{#NAME}].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>You may want to enable &quot;{#NAME}&quot; at startup</name>
