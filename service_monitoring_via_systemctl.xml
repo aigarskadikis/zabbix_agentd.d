@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-01-18T13:43:00Z</date>
+    <date>2019-01-18T15:15:26Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -42,7 +42,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>services.systemctl</key>
-                    <delay>30s</delay>
+                    <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
@@ -66,7 +66,7 @@
                         <conditions>
                             <condition>
                                 <macro>{#NAME}</macro>
-                                <value>(kdump|systemd-readahead-drop|irqbalance|dbus-org.freedesktop.nm-dispatcher|NetworkManager-dispatcher)</value>
+                                <value>(kdump|systemd-readahead-drop|irqbalance|dbus-org.freedesktop.nm-dispatcher|NetworkManager-dispatcher|zabbix-agent)</value>
                                 <operator>9</operator>
                                 <formulaid>A</formulaid>
                             </condition>
@@ -327,8 +327,8 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>systemctl.status[{#NAME}]</key>
-                            <delay>20s</delay>
-                            <history>1h</history>
+                            <delay>5m</delay>
+                            <history>0</history>
                             <trends>0</trends>
                             <status>0</status>
                             <value_type>4</value_type>
@@ -425,7 +425,7 @@ contains a triggered start. A workaround has been made to detect if the service 
                             <expression>{service monitoring using systemctl:status[{#NAME}].last()}=1 and {service monitoring using systemctl:startup[{#NAME}].last()}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
-                            <name>You may want to enable &quot;{#NAME}&quot; at startup</name>
+                            <name>Service &quot;{#NAME}&quot; is running but not enabled at startup</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
