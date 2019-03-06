@@ -1,0 +1,32 @@
+Service monitoring using systemctl, convert string to number, RegEx
+========================================================================
+This document represents the following zabbix features/techniques:
+
+* UserParameter which will discover all services. JSON format containing 2 parameters {#NAME} and {#STATUS}
+* Item UserParameter with argument. A safest way (rather than use system.run) to call a custom command from item key
+* A textual item. This is the input data (raw contet). A result from "systemctl status some-service-name". You do not want to store this in database
+* A dependable item. By grabing the raw conted and using regular expression it is possible to extract a line. See item prototypes: "active {#NAME}" and "loaded {#NAME}".
+  This technique show how it is possible to conver string to numbers. Underneath the hood it is not a substition. 
+  
+  
+First step: The recieving value is one word like "disabled" or "enabled"
+case1: disabled
+case2: enabled
+case3: static
+
+Now we need to add to each of result all avaiable options. At first we will put this string in group 1:
+(.*)
+now will print on screen this group 1 + add all available options.
+\1:disabled=0:enabled=1:static=2
+This is necessary because in the last step we want for the regEx to allways found at least on of the keywords.
+
+now the result on screen will because
+case1: disabled:disabled=0:enabled=1:static=2
+case2: enabled:disabled=0:enabled=1:static=2
+case3: static:disabled=0:enabled=1:static=2
+
+It does not make sence! right? What can we possible do with this string?
+The answer is to use first group as an input of second group
+(disabled|enabled|static)(?=.*:\1=(\d))
+Inside the first group there can be only words "disabled", "enabled" or "static"
+
