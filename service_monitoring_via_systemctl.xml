@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-04-22T11:55:27Z</date>
+    <date>2019-04-22T11:59:43Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -394,6 +394,22 @@
                             <status>0</status>
                             <priority>2</priority>
                             <description>Maybe the pid file do not match from config with the startup init file</description>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{service monitoring using systemctl:status[{#NAME}].last()}=4</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>Service &quot;{#NAME}&quot; is not in healthy state</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>4</priority>
+                            <description/>
                             <type>0</type>
                             <manual_close>0</manual_close>
                             <dependencies/>
