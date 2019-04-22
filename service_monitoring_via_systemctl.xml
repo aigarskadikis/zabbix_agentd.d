@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-01-18T15:15:26Z</date>
+    <date>2019-04-22T11:55:27Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -289,11 +289,11 @@
                                 <step>
                                     <type>5</type>
                                     <params>\((.*)\)
-\1:dead=0:running=1:exited=2:start=3</params>
+\1;dead=0;running=1;exited=2;start=3;Result: exit-code=4</params>
                                 </step>
                                 <step>
                                     <type>5</type>
-                                    <params>(dead|running|exited|start)(?=.*:\1=(\d))
+                                    <params>(dead|running|exited|start|Result: exit-code)(?=.*;\1=(\d))
 \2</params>
                                 </step>
                             </preprocessing>
@@ -327,7 +327,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>systemctl.status[{#NAME}]</key>
-                            <delay>5m</delay>
+                            <delay>10m</delay>
                             <history>0</history>
                             <trends>0</trends>
                             <status>0</status>
@@ -490,6 +490,10 @@ contains a triggered start. A workaround has been made to detect if the service 
                 <mapping>
                     <value>3</value>
                     <newvalue>start</newvalue>
+                </mapping>
+                <mapping>
+                    <value>4</value>
+                    <newvalue>something wrong</newvalue>
                 </mapping>
             </mappings>
         </value_map>
