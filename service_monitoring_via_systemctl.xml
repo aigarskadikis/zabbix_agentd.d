@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-04-22T11:59:43Z</date>
+    <date>2019-08-11T20:33:17Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -42,7 +42,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>services.systemctl</key>
-                    <delay>1h</delay>
+                    <delay>1d</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
@@ -66,7 +66,7 @@
                         <conditions>
                             <condition>
                                 <macro>{#NAME}</macro>
-                                <value>(kdump|systemd-readahead-drop|irqbalance|dbus-org.freedesktop.nm-dispatcher|NetworkManager-dispatcher|zabbix-agent)</value>
+                                <value>(kdump|systemd-readahead-drop|irqbalance|dbus-org.freedesktop.nm-dispatcher|NetworkManager-dispatcher|zabbix-agent|wpa_supplicant|dbus-fi.w1.wpa_supplicant1)</value>
                                 <operator>9</operator>
                                 <formulaid>A</formulaid>
                             </condition>
@@ -129,6 +129,11 @@
                                 <step>
                                     <type>5</type>
                                     <params>Condition..(.*)
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
 \1:no=0:start=1</params>
                                 </step>
                                 <step>
@@ -209,6 +214,11 @@
                                 <step>
                                     <type>5</type>
                                     <params>;.(.*);
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
 \1:disabled=0:enabled=1:static=2:indirect=3</params>
                                 </step>
                                 <step>
@@ -289,6 +299,11 @@
                                 <step>
                                     <type>5</type>
                                     <params>\((.*)\)
+\1</params>
+                                </step>
+                                <step>
+                                    <type>5</type>
+                                    <params>(.*)
 \1;dead=0;running=1;exited=2;start=3;Result: exit-code=4</params>
                                 </step>
                                 <step>
