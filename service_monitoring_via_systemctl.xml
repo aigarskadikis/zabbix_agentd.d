@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>4.0</version>
-    <date>2019-08-11T20:33:17Z</date>
+    <date>2019-08-14T16:03:04Z</date>
     <groups>
         <group>
             <name>Templates/Linux</name>
@@ -42,7 +42,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>services.systemctl</key>
-                    <delay>1d</delay>
+                    <delay>1h</delay>
                     <status>0</status>
                     <allowed_hosts/>
                     <snmpv3_contextname/>
@@ -124,7 +124,7 @@
                                 <step>
                                     <type>5</type>
                                     <params>((.*)(\n)?)+
-\0:Condition= no</params>
+\0;Condition= no</params>
                                 </step>
                                 <step>
                                     <type>5</type>
@@ -134,11 +134,11 @@
                                 <step>
                                     <type>5</type>
                                     <params>(.*)
-\1:no=0:start=1</params>
+\1;no=0;start=1</params>
                                 </step>
                                 <step>
                                     <type>5</type>
-                                    <params>(no|start)(?=.*:\1=(\d))
+                                    <params>(no|start)(?=.*;\1=(\d))
 \2</params>
                                 </step>
                             </preprocessing>
@@ -219,11 +219,11 @@
                                 <step>
                                     <type>5</type>
                                     <params>(.*)
-\1:disabled=0:enabled=1:static=2:indirect=3</params>
+\1;disabled=0;enabled=1;static=2;indirect=3</params>
                                 </step>
                                 <step>
                                     <type>5</type>
-                                    <params>(disabled|enabled|static|indirect)(?=.*:\1=(\d))
+                                    <params>(disabled|enabled|static|indirect)(?=.*;\1=(\d))
 \2</params>
                                 </step>
                             </preprocessing>
@@ -342,7 +342,7 @@
                             <snmp_community/>
                             <snmp_oid/>
                             <key>systemctl.status[{#NAME}]</key>
-                            <delay>10m</delay>
+                            <delay>1m</delay>
                             <history>0</history>
                             <trends>0</trends>
                             <status>0</status>
